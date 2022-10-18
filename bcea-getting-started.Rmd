@@ -1,0 +1,51 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+library(BCEA)
+library(ggplot2)
+```
+
+Load the data.
+```{r}
+data(Smoking)
+```
+
+This study has four interventions.
+```{r}
+treats <- c("No intervention", "Self-help", "Individual counselling", "Group counselling")
+```
+
+Setting the reference group (ref) to Group counselling and the maximum willingness to pay (Kmax) as 500
+```{r}
+bcea_smoke <- bcea(eff, cost, ref = 4, interventions = treats, Kmax = 500)
+```
+
+We can easily create a grid of the most common plots
+```{r}
+dev.new(width=20, height=20, unit="in")
+plot(bcea_smoke)
+```
+
+
+Individual plots can be plotting using their own functions.
+```{r}
+ceplane.plot(bcea_smoke, comparison = 2, wtp = 250)
+eib.plot(bcea_smoke)
+```
+```{r}
+contour(bcea_smoke)
+```
+
+```{r}
+ceac.plot(bcea_smoke)
+```
+
+```{r}
+ib.plot(bcea_smoke)
+```
+
+  
